@@ -3,15 +3,13 @@ using AparrotServer;
 
 namespace Raven.Tests.Util
 {
-	class IISExpressDriver : ProcessDriver
+	public class IISExpressDriver : ProcessDriver
 	{
 		public string Url { get; private set;  }
 
 		public void Start(string physicalPath, int port)
 		{
-			var sitePhysicalDirectory = physicalPath;
-		    
-            var arguments = @"/systray:false /port:" + port + @" /path:" + sitePhysicalDirectory;
+		    var arguments = @"/systray:false /port:" + port + @" /path:" + physicalPath;
 
             Console.WriteLine("Running IISExpress as: " + arguments);
 

@@ -14,13 +14,7 @@ namespace AparrotServer.Test
     {
         public override void Specify()
         {
-            var serverUnderTest = beforeAll(() => new IISExpressDriver());
-
-            var sitePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Settings.Default.AparratServerFilepath);
-
-            sitePath = Path.GetFullPath(sitePath);
-
-            arrange(() => serverUnderTest.Start(sitePath, 8084));
+            IISExpressDriver serverUnderTest = this.ArrangeServer();
 
             it("responds OK to status requests", delegate()
             {
