@@ -1,0 +1,32 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "Parrot Talks";
+}
+
+<h2>Parrot Talks</h2>
+
+<img src="@Url.Content("Content/parrot_text_mode.png")"/>
+
+@using(var form = Html.BeginForm("Index", "Speak", FormMethod.Get))
+{
+    @Html.TextBox("t");
+           
+    <input type="button" class="parrot-submit" value="Speak" />
+}
+
+<script type="text/javascript">
+
+    function GetSpeakUrl(text) {
+        var result = @Html.Raw(Json.Encode(Url.Action("Index", "Speak")));
+        result += "?t=" + encodeURIComponent(text);
+        return result;
+    }
+
+    $("input.parrot-submit").click(function () {
+        $("audio").remove();
+        var newAudio = $("<audio class='parrotText' autoplay='true'>");
+        newAudio.prop("src", GetSpeakUrl($("input#t").val()));
+        $("body").append(newAudio);
+    });
+</script>

@@ -12,11 +12,11 @@ namespace AparrotServer.Controllers
         //
         // GET: /Speak/
 
-        public ActionResult Index()
+        public ActionResult Index(string t = "Hello, world")
         {
-            var text = Request.QueryString["t"] ?? "Hello, world";
+            var text = t;
 
-            var parameters = "\"" + text + "\"";
+            var parameters = "-a 20 \"" + text + "\"";
 
             Response.Headers.Add("ESpeak-parameters", parameters);
 

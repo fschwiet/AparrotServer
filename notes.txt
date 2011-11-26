@@ -1,0 +1,2 @@
+"ffmpeg-sharp is a wrapper library over the FFmpeg multimedia suite that provides easy to use wrappers for use in CIL products under both Mono and .NET"
+  http://code.google.com/p/ffmpeg-sharp/

@@ -36,7 +36,7 @@ namespace AparrotServer
 			Task.Factory.StartNew(() =>
 			{
 				string line;
-				while ((line = _process.StandardOutput.ReadLine()) != null)
+                while (_process != null && (line = _process.StandardOutput.ReadLine()) != null)
 				{
 					output.Add(line);
 				}
@@ -45,7 +45,7 @@ namespace AparrotServer
 			Task.Factory.StartNew(() =>
 			{
 				string line;
-				while ((line = _process.StandardError.ReadLine()) != null)
+                while (_process != null && (line = _process.StandardError.ReadLine()) != null)
 				{
 					error.Add(line);
 				}
@@ -53,7 +53,7 @@ namespace AparrotServer
 
 			Task.Factory.StartNew(() =>
 			{
-				while (_process.HasExited == false)
+                while (_process != null && _process.HasExited == false)
 				{
 					_process.StandardInput.WriteLine(input.Take());
 				}

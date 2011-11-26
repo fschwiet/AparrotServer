@@ -20,7 +20,7 @@ namespace AparrotServer.Test
             {
                 client.DownloadData(serverUnderTest.UrlFor("/Speak"));
 
-                expect(() => client.ResponseHeaders["ESpeak-Parameters"] == "\"Hello, world\"");
+                expect(() => client.ResponseHeaders["ESpeak-Parameters"].Contains("\"Hello, world\""));
                 expect(() => client.ResponseHeaders["content-type"] == "audio/wav");
                 expect(() => int.Parse(client.ResponseHeaders["content-length"]) > 0);
             });
@@ -31,7 +31,15 @@ namespace AparrotServer.Test
 
                 client.DownloadData(serverUnderTest.UrlFor("/Speak?t=" + Uri.EscapeDataString(expectedText)));
 
-                expect(() => client.ResponseHeaders["ESpeak-Parameters"] == '"' + expectedText + '"');
+                expect(() => client.ResponseHeaders["ESpeak-Parameters"].Contains('"' + expectedText + '"'));
+            });
+
+            it("uses a low volume by default", delegate()
+            {
+                client.DownloadData(serverUnderTest.UrlFor("/Speak"));
+
+                expect(() => client.ResponseHeaders["ESpeak-Parameters"].Contains("-a 20 "));
+                
             });
         }
     }
