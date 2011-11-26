@@ -18,7 +18,7 @@ namespace AparrotServer.Test
 
             sitePath = Path.GetFullPath(sitePath);
 
-            fixture.arrange(() => serverUnderTest.Start(sitePath, 8084));
+            fixture.beforeAll(() => serverUnderTest.Start(sitePath, 8084));
 
             return serverUnderTest;
         }

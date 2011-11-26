@@ -14,12 +14,16 @@ namespace AparrotServer.Controllers
 
         public ActionResult Index()
         {
-            var parameters = "\"Hello, world\"";
+            var text = Request.QueryString["t"] ?? "Hello, world";
+
+            var parameters = "\"" + text + "\"";
+
             Response.Headers.Add("ESpeak-parameters", parameters);
 
             using(var driver = new ESpeakDriver())
             {
                 var result = driver.Run(parameters);
+
                 return new FileContentResult(result, "audio/wav");
             }
         }

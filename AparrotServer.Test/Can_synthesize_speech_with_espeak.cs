@@ -24,6 +24,15 @@ namespace AparrotServer.Test
                 expect(() => client.ResponseHeaders["content-type"] == "audio/wav");
                 expect(() => int.Parse(client.ResponseHeaders["content-length"]) > 0);
             });
+
+            it("can synthesize arbitrary text", delegate()
+            {
+                var expectedText = "What are we going to do tonight, Brain?";
+
+                client.DownloadData(serverUnderTest.UrlFor("/Speak?t=" + Uri.EscapeDataString(expectedText)));
+
+                expect(() => client.ResponseHeaders["ESpeak-Parameters"] == '"' + expectedText + '"');
+            });
         }
     }
 }
